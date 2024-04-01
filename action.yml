@@ -1,6 +1,6 @@
-name: Sync and merge upstream repository with your current repository
-description: Syncs and merges your current repository with the upstream repository. Fork of https://github.com/mheene/sync-upstream-repo.
-author: Dabreadman
+name: Sync and reset upstream repository with your current repository
+description: Syncs and merges your current repository with the upstream repository using git reset --hard
+author: Fredrik Simonsson
 
 inputs:
   upstream_repo:
@@ -9,11 +9,11 @@ inputs:
   upstream_branch:
     description: Branch to merge from upstream (defaults to downstream branch)
     required: false
-    default: "main"
+    default: "master"
   downstream_branch:
-    description: Branch to merge into downstream
+    description: Branch to track
     required: false
-    default: ""
+    default: "master"
   token:
     description: GitHub Bot token
     required: true
@@ -21,18 +21,10 @@ inputs:
     description: Git fetch arguments
     required: false
     default: ""
-  merge_args:
-    description: Git merge arguments
-    required: false
-    default: ""
   push_args:
-    description: Git push arguments
+    description: Git push arguments, probably want to use --force here
     required: false
     default: ""
-  spawn_logs: 
-    description: Toggle to spawn `sync-upstream-repo` with time logs
-    required: true
-    default: false
 
 runs:
   using: "docker"
@@ -43,9 +35,7 @@ runs:
     - ${{ inputs.downstream_branch }}
     - ${{ inputs.token }}
     - ${{ inputs.fetch_args }}
-    - ${{ inputs.merge_args }}
     - ${{ inputs.push_args }}
-    - ${{ inputs.spawn_logs }}
 
 branding:
   icon: "git-merge"
