@@ -22,7 +22,7 @@ inputs:
     required: false
     default: ""
   push_args:
-    description: Git push arguments
+    description: Git push arguments, probably want to use --force here
     required: false
     default: ""
 
