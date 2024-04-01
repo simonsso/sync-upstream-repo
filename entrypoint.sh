@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-set -x
-
+# expext action.yml to set:
 UPSTREAM_REPO=$1
 UPSTREAM_BRANCH=$2
 DOWNSTREAM_BRANCH=$3
 GITHUB_TOKEN=$4
-FETCH_ARGS=$5
+ETCH_ARGS=$5
+PUSH_ARGS=$6
 
 if [[ -z "$UPSTREAM_REPO" ]]; then
   echo "Missing \$UPSTREAM_REPO"
@@ -38,10 +38,7 @@ git remote add upstream "$UPSTREAM_REPO"
 git fetch ${FETCH_ARGS} upstream
 git remote -v
 
-git checkout ${DOWNSTREAM_BRANCH}
+git checkout --track origin/${DOWNSTREAM_BRANCH}
 
 git reset --hard upstream/${UPSTREAM_BRANCH}
-git push origin
-
-cd ..
-rm -rf work
+git push $PUSH_ARGS origin

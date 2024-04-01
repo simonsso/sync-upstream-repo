@@ -21,6 +21,10 @@ inputs:
     description: Git fetch arguments
     required: false
     default: ""
+  push_args:
+    description: Git push arguments
+    required: false
+    default: ""
 
 runs:
   using: "docker"
@@ -31,6 +35,7 @@ runs:
     - ${{ inputs.downstream_branch }}
     - ${{ inputs.token }}
     - ${{ inputs.fetch_args }}
+    - ${{ inputs.push_args }}
 
 branding:
   icon: "git-merge"
